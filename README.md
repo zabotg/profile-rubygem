@@ -17,12 +17,14 @@ Or install it yourself as:
 ## Usage
 
 This is an example library usage for extracting content from phone bills in .csv format
+The file must be in .csv format and contain separations by (;)
 
 ```ruby
 1. "gem install extraction"
 2. "extraction sample.csv 041-9999-9999"
 ```
 The test files must be placed inside the folder, where the library is located.
+
 
 ## Development
 
