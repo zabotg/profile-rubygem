@@ -52,18 +52,14 @@ csv.each do |row|
    line =  row.to_s
    line = line.split(';')
    if(line[3].match(numero)) # ...Searches for rows that have the parameter
-      if(line[6].downcase.match(/local|locais/))     # ...1 - Ligacoes locais
-         if(line[6].downcase.match(/fixo/))          # ...1.1 - Ligacoes P/ Fixos
-            local_fixo.push(ReturnSeconds(line[13]))
-         else                                         # ...1.2 - Ligacoes P/ Celular (Padrao)
+      if(line[6].downcase.match(/(local|locais)(\s|\w)*fixo/))           # ...1 - Ligacoes locais
+            local_fixo.push(ReturnSeconds(line[13]))                    # ...1.1 - Ligacoes P/ Fixos
+      elsif (line[6].downcase.match(/(local|locais)(\s|\w)*celular/)) # ...1.2 - Ligacoes P/ Celular (Padrao)
             local_celular.push(ReturnSeconds(line[13]))
-         end
-      elsif(line[6].downcase.match(/ld|distância|distancia/)) # ...2 - Ligacoes LD
-         if(line[6].downcase.match(/fixo/))                   # ...2.1 - Ligacoes P/ Fixos
-            ld_fixo.push(ReturnSeconds(line[13]))
-         else                                                  # ...2.2 - Ligacoes P/ Celular (Padrao)
-            ld_celular.push(ReturnSeconds(line[13]))
-         end
+      elsif(line[6].downcase.match(/(ld|distância|distancia)(\s|\w)*fixo/)) # ...2 - Ligacoes LD
+         ld_fixo.push(ReturnSeconds(line[13]))                              # ...2.1 - Ligacoes P/ Fixos
+      elsif(line[6].downcase.match(/(ld|distância|distancia)(\s|\w)*celular/))                                                               # ...2.2 - Ligacoes P/ Celular (Padrao)
+         ld_celular.push(ReturnSeconds(line[13]))
       elsif(line[6].downcase.match(/torpedo/))                # ...3 - SMS (Torpedos)
           torpedos += 1
       elsif(line[6].downcase.match(/fast/))                   # ...4 - Internet (Fast)
